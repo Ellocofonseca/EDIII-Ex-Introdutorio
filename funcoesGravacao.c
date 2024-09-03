@@ -28,7 +28,7 @@ void registrar_especie()
     FILE *arquivo;
     arquivo = fopen(nomearq, "ab"); //cria e 
     fclose(arquivo);                //fecha o arquivo
-    
+
     //abre o arquivo no modo append, ele cria e escreve do zero caso o arquivo n exista
     //caso o arquivo ja exista ele continua escrevendo a partir do fim dele
 
@@ -119,7 +119,9 @@ void registrar_especie()
                 
 
                 if(REGISTRO.SPECIES_ID!=-1){    //caso algo de errado tenha acontecido na leitura de dados a informacao nao eh inserida no arquivo
-                    //GRAVA NO ARQUIVO
+                    arquivo = fopen(nomearq, "ab");
+
+                    fclose(arquivo);
                 }
 
 
@@ -149,9 +151,11 @@ int checa_ID(int ID, char nomearq[31],int insercoes){
 
         if (!(ID ^ check)) //se o ID atual for identico a algum dentro do arquivo retorna 1;
         {
+            fclose(arquivo);
             return 1;
         }
     }
+    fclose(arquivo);
     
     return 0;
 }

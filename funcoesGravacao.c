@@ -120,7 +120,14 @@ void registrar_especie()
 
                 if(REGISTRO.SPECIES_ID!=-1){    //caso algo de errado tenha acontecido na leitura de dados a informacao nao eh inserida no arquivo
                     arquivo = fopen(nomearq, "ab");
-
+                    fwrite(&REGISTRO.SPECIES_ID, 4, 1, arquivo);
+                    fwrite(REGISTRO.NAME, 41, 1, arquivo);
+                    fwrite(REGISTRO.SCIENTIFIC_NAME, 61, 1, arquivo);
+                    fwrite(&REGISTRO.POPULATION, 4, 1, arquivo);
+                    fwrite(REGISTRO.STATUS, 9, 1, arquivo);
+                    fwrite(&REGISTRO.LOCATION_LON, 4, 1, arquivo);
+                    fwrite(&REGISTRO.LOCATION_LAT, 4, 1, arquivo);
+                    fwrite(&REGISTRO.HUMAN_IMPACT, 4, 1, arquivo);
                     fclose(arquivo);
                 }
 

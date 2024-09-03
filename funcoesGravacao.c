@@ -61,7 +61,7 @@ void registrar_especie()
 
                 getchar();
                 scanf("%s",REGISTRO.NAME);
-                for(j=strlen(REGISTRO.NAME)-1; j<40;j++){               //coloca o cifrao no lugar dos espacos em branco
+                for(j=strlen(REGISTRO.NAME); j<41;j++){               //coloca o cifrao no lugar dos espacos em branco
                     REGISTRO.NAME[j] = '$';
                 }
 
@@ -69,7 +69,7 @@ void registrar_especie()
 
                 getchar();
                 scanf("%s",REGISTRO.SCIENTIFIC_NAME);
-                for(j=strlen(REGISTRO.SCIENTIFIC_NAME)-1; j<60;j++){    //coloca o cifrao no lugar dos espacos em branco
+                for(j=strlen(REGISTRO.SCIENTIFIC_NAME); j<61;j++){    //coloca o cifrao no lugar dos espacos em branco
                     REGISTRO.SCIENTIFIC_NAME[j] = '$';
                 }
 
@@ -86,7 +86,7 @@ void registrar_especie()
 
                 getchar();
                 scanf("%s",REGISTRO.STATUS);
-                for(j=strlen(REGISTRO.STATUS)-1; j<8;j++){  //coloca o cifrao no lugar dos espacos em branco
+                for(j=strlen(REGISTRO.STATUS); j<9;j++){  //coloca o cifrao no lugar dos espacos em branco
                     REGISTRO.STATUS[j] = '$';
                 }
 

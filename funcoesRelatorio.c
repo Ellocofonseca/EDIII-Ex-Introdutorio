@@ -27,18 +27,18 @@ void relatorio_especies()
 
         while(1){
 
-        if(fread(&REGISTRO.SPECIES_ID, 4, 1, arquivo)==0)
-            break;
-        fread(REGISTRO.NAME, 41, 1, arquivo);
-        fread(REGISTRO.SCIENTIFIC_NAME, 61, 1, arquivo);
-        fread(&REGISTRO.POPULATION, 4, 1, arquivo);
-        fread(REGISTRO.STATUS, 9, 1, arquivo);
-        fread(&REGISTRO.LOCATION_LON, 4, 1, arquivo);
-        fread(&REGISTRO.LOCATION_LAT, 4, 1, arquivo);
-        if(fread(&REGISTRO.HUMAN_IMPACT, 4, 1, arquivo)==0)
-            break;
+            if(fread(&REGISTRO.SPECIES_ID, 4, 1, arquivo)==0)
+                break;
+            fread(REGISTRO.NAME, 41, 1, arquivo);
+            fread(REGISTRO.SCIENTIFIC_NAME, 61, 1, arquivo);
+            fread(&REGISTRO.POPULATION, 4, 1, arquivo);
+            fread(REGISTRO.STATUS, 9, 1, arquivo);
+            fread(&REGISTRO.LOCATION_LON, 4, 1, arquivo);
+            fread(&REGISTRO.LOCATION_LAT, 4, 1, arquivo);
+            if(fread(&REGISTRO.HUMAN_IMPACT, 4, 1, arquivo)==0)
+                break;
 
-        exibe_registro(REGISTRO);//exibe o registro apos salvar os campos
+            exibe_registro(REGISTRO);//exibe o registro apos salvar os campos
         }
 
         fclose(arquivo); // fecha o arquivo

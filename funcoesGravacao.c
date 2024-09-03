@@ -153,7 +153,7 @@ int checa_ID(int ID, char nomearq[31],int insercoes){
             break;                               
         }
 
-        fread(check, 4, 1, arquivo);
+        fread(&check, 4, 1, arquivo);
 
         if (!(ID ^ check)) //se o ID atual for identico a algum dentro do arquivo retorna 1;
         {

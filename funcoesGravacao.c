@@ -135,7 +135,6 @@ void registrar_especie()
             }
         }
         
-        
         binarioNaTela(nomearq); //binario na tela, resultado
     }
 }

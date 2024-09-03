@@ -36,9 +36,9 @@ void direcionaComando(int codigo);              //FUNCAO DE SELECAO DE FUNCAO DE
 
 
 //FUNCOES DE CRIACAO/EDICAO DE ARQUIVOS (comandos 1 e 4) 
-void registrar_especie();                       //FUNCAO QUE LE DO TECLADO E ESCREVE NO ARQUIVO
-//void registra_informacao();                     //FUNCAO QUE EDITA A INFORMACAO EM REGISTROS ESCOLHIDOS
-int checa_ID(int ID, char nomearq[31],int insercoes);         //FUNCAO QUE CHECA O ARQUIVO PARA GARANTIR QUE NAO HAJAM ID'S REPETIDOS
+void registrar_especie();                                       //FUNCAO QUE LE DO TECLADO E ESCREVE NO ARQUIVO
+//void registra_informacao();                                     //FUNCAO QUE EDITA A INFORMACAO EM REGISTROS ESCOLHIDOS
+int checa_ID(int ID, char nomearq[31],int insercoes);           //FUNCAO QUE CHECA O ARQUIVO PARA GARANTIR QUE NAO HAJAM ID'S REPETIDOS
 
 
 //FUNCOES DE RELATORIO (comandos 2 e 3)

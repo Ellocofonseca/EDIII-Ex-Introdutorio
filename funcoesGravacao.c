@@ -60,17 +60,26 @@ void registrar_especie()
                 //LEITURA DO NOME DA ESPECIE
 
                 getchar();
-                fgets(REGISTRO.NAME,40,stdin);
-                for(j=strlen(REGISTRO.NAME)+1; j<41;j++){               //coloca o cifrao no lugar dos espacos em branco
+                fgets(REGISTRO.NAME,41,stdin);
+                for(j=strlen(REGISTRO.NAME); j<41;j++){               //coloca o cifrao no lugar dos espacos em branco
+
+                    if(strlen(REGISTRO.NAME)==40) //caso o tamanho da string seja 41, nao adiciona lixo
+                        break;
+
                     REGISTRO.NAME[j] = '$';
                 }
 
                 //LEITURA DO NOME CIENTIFICO DA ESPECIE
 
-                getchar();
-                fgets(REGISTRO.SCIENTIFIC_NAME,60,stdin);
-                for(j=strlen(REGISTRO.SCIENTIFIC_NAME)+1; j<61;j++){    //coloca o cifrao no lugar dos espacos em branco
+
+                fgets(REGISTRO.SCIENTIFIC_NAME,61,stdin);
+                for(j=strlen(REGISTRO.SCIENTIFIC_NAME); j<61;j++){    //coloca o cifrao no lugar dos espacos em branco
+
+                    if(strlen(REGISTRO.SCIENTIFIC_NAME)==60) //caso o tamanho da string seja 61, nao adiciona lixo
+                        break;
+
                     REGISTRO.SCIENTIFIC_NAME[j] = '$';
+
                 }
 
                 //LEITURA DA POPULACAO DA ESPECIE
@@ -85,8 +94,12 @@ void registrar_especie()
                 //LEITURA DO STATUS DA ESPECIE
 
                 getchar();
-                fgets(REGISTRO.STATUS,8,stdin);
-                for(j=strlen(REGISTRO.STATUS)+1; j<9;j++){  //coloca o cifrao no lugar dos espacos em branco
+                fgets(REGISTRO.STATUS,9,stdin);
+                for(j=strlen(REGISTRO.STATUS); j<9;j++){  //coloca o cifrao no lugar dos espacos em branco
+
+                    if(strlen(REGISTRO.STATUS)==8)  //caso o tamanho da string seja 9, nao adiciona lixo
+                        break;
+
                     REGISTRO.STATUS[j] = '$';
                 }
 

@@ -60,16 +60,16 @@ void registrar_especie()
                 //LEITURA DO NOME DA ESPECIE
 
                 getchar();
-                scanf("%s",REGISTRO.NAME);
-                for(j=strlen(REGISTRO.NAME); j<41;j++){               //coloca o cifrao no lugar dos espacos em branco
+                fgets(REGISTRO.NAME,40,stdin);
+                for(j=strlen(REGISTRO.NAME)+1; j<41;j++){               //coloca o cifrao no lugar dos espacos em branco
                     REGISTRO.NAME[j] = '$';
                 }
 
                 //LEITURA DO NOME CIENTIFICO DA ESPECIE
 
                 getchar();
-                scanf("%s",REGISTRO.SCIENTIFIC_NAME);
-                for(j=strlen(REGISTRO.SCIENTIFIC_NAME); j<61;j++){    //coloca o cifrao no lugar dos espacos em branco
+                fgets(REGISTRO.SCIENTIFIC_NAME,60,stdin);
+                for(j=strlen(REGISTRO.SCIENTIFIC_NAME)+1; j<61;j++){    //coloca o cifrao no lugar dos espacos em branco
                     REGISTRO.SCIENTIFIC_NAME[j] = '$';
                 }
 
@@ -85,8 +85,8 @@ void registrar_especie()
                 //LEITURA DO STATUS DA ESPECIE
 
                 getchar();
-                scanf("%s",REGISTRO.STATUS);
-                for(j=strlen(REGISTRO.STATUS); j<9;j++){  //coloca o cifrao no lugar dos espacos em branco
+                fgets(REGISTRO.STATUS,8,stdin);
+                for(j=strlen(REGISTRO.STATUS)+1; j<9;j++){  //coloca o cifrao no lugar dos espacos em branco
                     REGISTRO.STATUS[j] = '$';
                 }
 

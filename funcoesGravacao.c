@@ -235,10 +235,6 @@ void registra_informacao()
                         else{
                             readline(REGISTRO.STATUS);  //le um status novo caso o campo esteja com "NULO"
                             for(i=strlen(REGISTRO.STATUS)+1; i<9;i++){  //coloca o cifrao no lugar dos espacos em branco
-
-                                if(strlen(REGISTRO.STATUS)==9)  //caso o tamanho da string seja 9, nao adiciona lixo
-                                    break;
-
                                 REGISTRO.STATUS[i] = '$';
                              }
                         }

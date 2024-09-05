@@ -93,7 +93,8 @@ void relatorio_RRN()
 void exibe_registro(registro_especie REGISTRO){
 
     
-    //setlocale(LC_ALL, "");      //caracteres da lingua portuguesa
+    setlocale(LC_ALL, "");      //caracteres da lingua portuguesa
+    
     printf("ID: %d\n",REGISTRO.SPECIES_ID);
     printf("Nome: %s\n",REGISTRO.NAME);
     printf("Nome Científico: %s\n",REGISTRO.SCIENTIFIC_NAME);

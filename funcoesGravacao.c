@@ -12,9 +12,6 @@
 /  vale ressaltar que em todos os loops eh necessario checar os ID's de cada
 /  especie para que nao hajam repeticoes 
 /
-/  tambem foi criada uma funcao que, ao ler strings, evita que o usuario insira strings 
-/  maiores que o tamanho maximo do campo de um registro
-
  *******************************************************************/
 void registrar_especie()
 {
@@ -44,26 +41,32 @@ void registrar_especie()
             printf(ERRO_PADRAO);    //mensagem de erro
         }
         else{
+            int IDs_registrados[nroRegistros];
             for(i=0;i<nroRegistros;i++){
-
-                getchar();
+                
                 scanf("%d",&REGISTRO.SPECIES_ID);
+                IDs_registrados[i]=REGISTRO.SPECIES_ID; //salva o ID para checagem posterior de repeticoes
+
+
                 if(REGISTRO.SPECIES_ID<0){
-                    printf(ERRO_PADRAO);        //caso o usuario insira um ID invalido a inserção é interrompida
+                    printf(ERRO_CADASTRO);      //caso o usuario insira um ID invalido
                     REGISTRO.SPECIES_ID==-1;
+                    IDs_registrados[i]=-1;  //invalida o resgistro como "salvo"  
                 }
-                if(checa_ID(REGISTRO.SPECIES_ID,nomearq,i)){
-                    printf(ERRO_CADASTRO);      //caso o usuario insira um ID repetido retorna erro
-                    REGISTRO.SPECIES_ID==-1;  
+                for(j=0;j<i;j++){                                       //roda o loop um total de vezes igual a quantas tentativas de insercao ja foram feitas no sistema
+                    if(REGISTRO.SPECIES_ID==IDs_registrados[j]){        //se o ID atual for igual a algum id salvo anterior retorna erro
+                        printf(ERRO_CADASTRO);                          //caso o usuario insira um ID repetido retorna erro
+                        REGISTRO.SPECIES_ID==-1;
+                        IDs_registrados[i]=-1;  //invalida o resgistro como "salvo" 
+                    } 
                 }
 
                 //LEITURA DO NOME DA ESPECIE
 
-                getchar();
-                fgets(REGISTRO.NAME,41,stdin);
-                for(j=strlen(REGISTRO.NAME); j<41;j++){               //coloca o cifrao no lugar dos espacos em branco
+                readline(REGISTRO.NAME);
+                for(j=strlen(REGISTRO.NAME)+1; j<41;j++){               //coloca o cifrao no lugar dos espacos em branco
 
-                    if(strlen(REGISTRO.NAME)==40) //caso o tamanho da string seja 41, nao adiciona lixo
+                    if(strlen(REGISTRO.NAME)==41) //caso o tamanho da string seja 41, nao adiciona lixo
                         break;
 
                     REGISTRO.NAME[j] = '$';
@@ -71,11 +74,10 @@ void registrar_especie()
 
                 //LEITURA DO NOME CIENTIFICO DA ESPECIE
 
+                readline(REGISTRO.SCIENTIFIC_NAME);
+                for(j=strlen(REGISTRO.SCIENTIFIC_NAME)+1; j<61;j++){    //coloca o cifrao no lugar dos espacos em branco
 
-                fgets(REGISTRO.SCIENTIFIC_NAME,61,stdin);
-                for(j=strlen(REGISTRO.SCIENTIFIC_NAME); j<61;j++){    //coloca o cifrao no lugar dos espacos em branco
-
-                    if(strlen(REGISTRO.SCIENTIFIC_NAME)==60) //caso o tamanho da string seja 61, nao adiciona lixo
+                    if(strlen(REGISTRO.SCIENTIFIC_NAME)==61) //caso o tamanho da string seja 61, nao adiciona lixo
                         break;
 
                     REGISTRO.SCIENTIFIC_NAME[j] = '$';
@@ -84,20 +86,19 @@ void registrar_especie()
 
                 //LEITURA DA POPULACAO DA ESPECIE
 
-                getchar();
                 scanf("%d",&REGISTRO.POPULATION);
                 if(REGISTRO.POPULATION<0 ){
                     REGISTRO.SPECIES_ID==-1;
                     printf(ERRO_PADRAO);    //caso o usuario insira uma populacao invalida nao insere o registro no arquivo e retorna erro 
+                    IDs_registrados[i]=-1;  //invalida o resgistro como "salvo"
                 }
 
                 //LEITURA DO STATUS DA ESPECIE
 
-                getchar();
-                fgets(REGISTRO.STATUS,9,stdin);
-                for(j=strlen(REGISTRO.STATUS); j<9;j++){  //coloca o cifrao no lugar dos espacos em branco
+                readline(REGISTRO.STATUS);
+                for(j=strlen(REGISTRO.STATUS)+1; j<9;j++){  //coloca o cifrao no lugar dos espacos em branco
 
-                    if(strlen(REGISTRO.STATUS)==8)  //caso o tamanho da string seja 9, nao adiciona lixo
+                    if(strlen(REGISTRO.STATUS)==9)  //caso o tamanho da string seja 9, nao adiciona lixo
                         break;
 
                     REGISTRO.STATUS[j] = '$';
@@ -105,29 +106,29 @@ void registrar_especie()
 
                 //LEITURA DA COORDENADA X
 
-                getchar();
                 scanf("%f",&REGISTRO.LOCATION_LON);
-                if(REGISTRO.LOCATION_LON<-180 ||  REGISTRO.LOCATION_LON>180){
-                    REGISTRO.SPECIES_ID==-1;
-                    printf(ERRO_PADRAO);    //caso o usuario insira uma coordenada x inexistente   
-                }
+                //if(REGISTRO.LOCATION_LON<-180 ||  REGISTRO.LOCATION_LON>180){
+                //    REGISTRO.SPECIES_ID==-1;
+                //    printf(ERRO_PADRAO);    //caso o usuario insira uma coordenada x inexistente   
+                //    IDs_registrados[i]=-1;  //invalida o resgistro como "salvo"
+                //}
 
                 //LEITURA DA COORDENADA Y
-
-                getchar();
+         
                 scanf("%f",&REGISTRO.LOCATION_LAT);
-                if(REGISTRO.LOCATION_LAT<-90 ||  REGISTRO.LOCATION_LAT>90){
-                    REGISTRO.SPECIES_ID==-1;
-                    printf(ERRO_PADRAO);    //caso o usuario insira uma coordenada y inexistente   
-                }
+                //if(REGISTRO.LOCATION_LAT<-90 ||  REGISTRO.LOCATION_LAT>90){
+                //    REGISTRO.SPECIES_ID==-1;
+                //    printf(ERRO_PADRAO);    //caso o usuario insira uma coordenada y inexistente   
+                //    IDs_registrados[i]=-1;  //invalida o resgistro como "salvo"
+                //}
 
                 //LEITURA DO IMPACTO HUMANO ASSOCIADO
 
-                getchar();
                 scanf("%d",&REGISTRO.HUMAN_IMPACT);
                 if(REGISTRO.HUMAN_IMPACT<0 || REGISTRO.HUMAN_IMPACT>3){
                     REGISTRO.SPECIES_ID==-1;
-                    printf(ERRO_PADRAO);    //caso o usuario insira um HUMAN_IMPACT menor que 0 e maior que 3 retorna erro e nao insere o registro no arquivo   
+                    printf(ERRO_PADRAO);    //caso o usuario insira um HUMAN_IMPACT menor que 0 e maior que 3 retorna erro e nao insere o registro no arquivo
+                    IDs_registrados[i]=-1;  //invalida o resgistro como "salvo"   
                 }
                 
 
@@ -150,31 +151,4 @@ void registrar_especie()
         
         binarioNaTela(nomearq); //binario na tela, resultado
     }
-}
-
-
-int checa_ID(int ID, char nomearq[31],int insercoes){
-    int check=0,i;
-
-    FILE *arquivo;
-    arquivo = fopen(nomearq, "rb"); //abre o arquivo em modo leitura para saber se ja existe um ID repetido
-
-    for(i=0;i<insercoes-1;i++){ //o loop pula para cada inicio de registro, a quantidade de vezes depende de quantas insercoes ja foram feitas no arquivo
-
-        if(!fseek(arquivo,(i*127),SEEK_SET))//ajusta o ponteiro do arquivo para a posicao desejada, SPECIES_ID de cada registro
-        {   
-            break;                               
-        }
-
-        fread(&check, 4, 1, arquivo);
-
-        if (!(ID ^ check)) //se o ID atual for identico a algum dentro do arquivo retorna 1;
-        {
-            fclose(arquivo);
-            return 1;
-        }
-    }
-    fclose(arquivo);
-    
-    return 0;
 }

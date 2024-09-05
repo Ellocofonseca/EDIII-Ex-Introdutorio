@@ -8,7 +8,8 @@ de tamanho fixo.
 O programa conta com 4 comandos que vão de 1 à 4 e encontram-se abaixo:
 
     Formato de entrada do comando inicial do programa:
-"nro. do comando" "nomedoarquivo.bin"
+"nro. do comando"
+"nomedoarquivo.bin"
 
 
     Entradas após comando do programa: 
@@ -20,7 +21,7 @@ O programa conta com 4 comandos que vão de 1 à 4 e encontram-se abaixo:
 
 3.  Recebe o RRN do registro a ser lido do arquivo
 
-4.  Recebe a quantidade n de informações inseridas e o SPECIES_ID correspondente. Para
+4.  Recebe a quantidade n de informações inseridas (de 1 à 3) e o SPECIES_ID correspondente. Para
     cada informação inserida, lê-se a instrução “STATUS” “HUMAN IMPACT” ou
-    xxxx“POPULATION” e o dado referente
+    “POPULATION” e o dado referente em seguida
 

@@ -158,7 +158,7 @@ void registrar_especie()
 
 void registra_informacao()
 {
-    int encontrou,i;              //variavel auxiliar
+    int encontrou,i,j;              //variavel auxiliar
     char nomearq[31];             //nome do arquivo que sera criado
     char comando[31];             //comando de edicao de info do registro
     int RRN;                      //RRN do registro com o ID escolhido
@@ -234,7 +234,7 @@ void registra_informacao()
                         }
                         else{
                             readline(REGISTRO.STATUS);  //le um status novo caso o campo esteja com "NULO"
-                            for(i=strlen(REGISTRO.STATUS)+1; i<9;i++){  //coloca o cifrao no lugar dos espacos em branco
+                            for(j=strlen(REGISTRO.STATUS)+1; j<9;j++){  //coloca o cifrao no lugar dos espacos em branco
                                 REGISTRO.STATUS[i] = '$';
                              }
                         }

@@ -7,7 +7,7 @@ de tamanho fixo.
 
 O programa conta com 4 comandos que vão de 1 à 4 e encontram-se abaixo:
 
-Formato de entrada do comando inicial do programa:
+    Formato de entrada do comando inicial do programa:
 "nro. do comando" "nomedoarquivo.bin"
 
 

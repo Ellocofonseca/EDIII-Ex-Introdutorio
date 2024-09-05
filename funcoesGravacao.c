@@ -158,7 +158,7 @@ void registrar_especie()
 
 void registra_informacao()
 {
-    int encontrou,i,j;              //variavel auxiliar
+    int encontrou,leituras,j;              //variavel auxiliar
     char nomearq[31];             //nome do arquivo que sera criado
     char comando[31];             //comando de edicao de info do registro
     int RRN;                      //RRN do registro com o ID escolhido
@@ -221,7 +221,7 @@ void registra_informacao()
                 printf(ERRO_PADRAO);
             }
             else{
-                for (i = 0; i < nroInfos; i++) //loop que repete entre 0 e 3 vezes, para ler as modificacoes
+                for (leituras = 0; leituras < nroInfos; leituras++) //loop que repete entre 0 e 3 vezes, para ler as modificacoes
                 {
                     readline(comando);
 

@@ -26,6 +26,8 @@ void registrar_especie()
     arquivo = fopen(nomearq, "ab"); //cria e 
     fclose(arquivo);                //fecha o arquivo
 
+    //o arquivo é reaberto apenas na hora de escrever uma especie nele
+
     //abre o arquivo no modo append, ele cria e escreve do zero caso o arquivo n exista
     //caso o arquivo ja exista ele continua escrevendo a partir do fim dele
 
@@ -133,6 +135,7 @@ void registrar_especie()
                 
 
                 if(REGISTRO.SPECIES_ID!=-1){    //caso algo de errado tenha acontecido na leitura de dados a informacao nao eh inserida no arquivo
+                    //abre o arquivo para insercao das informacoes e depois fecha
                     arquivo = fopen(nomearq, "ab");
                     fwrite(&REGISTRO.SPECIES_ID, 4, 1, arquivo);
                     fwrite(REGISTRO.NAME, 41, 1, arquivo);
@@ -152,3 +155,151 @@ void registrar_especie()
         binarioNaTela(nomearq); //binario na tela, resultado
     }
 }
+
+void registra_informacao()
+{
+    int encontrou,i;              //variavel auxiliar
+    char nomearq[31];             //nome do arquivo que sera criado
+    char comando[31];             //comando de edicao de info do registro
+    int RRN;                      //RRN do registro com o ID escolhido
+    int ID;
+    int nroInfos;                 //numero de informacoes que serao adicionadas
+
+    int lixo;                     //variavel inutil para caso o usuario tente inserir um dado que ja existe
+    char lixostatus[9];           //variavel inutil para caso o usuario tente inserir um dado que ja existe
+
+    registro_especie REGISTRO;  //variavel de registro
+
+    scanf("%s",nomearq);
+    
+    FILE *arquivo;
+    arquivo = fopen(nomearq, "rb"); //abre o arquivo em modo leitura binaria para encontrar o RRN equivalente do ID desejado
+
+    RRN=0;
+    encontrou=0;
+
+    if(arquivo==NULL){          //se ocorrer algum erro ao abrir o arquivo retorna erro
+        printf(ERRO_PADRAO);
+    }
+    else{
+
+        scanf("%d",&ID);    //ID desejado
+
+        //PROCURA PELO ID DENTRO DO ARQUIVO
+        while(fread(&REGISTRO.SPECIES_ID,4,1,arquivo)){
+
+            if(REGISTRO.SPECIES_ID != ID){
+                RRN++;  
+                fseek(arquivo, RRN*131, SEEK_SET);      //seek nas posicoes do ID
+            }
+            else{
+                encontrou=1;        //marca como encontrado se encontrar, bruh
+
+                //le o resto do registro
+                fread(REGISTRO.NAME, 41, 1, arquivo);
+                fread(REGISTRO.SCIENTIFIC_NAME, 61, 1, arquivo);
+                fread(&REGISTRO.POPULATION, 4, 1, arquivo);
+                fread(REGISTRO.STATUS, 9, 1, arquivo);
+                fread(&REGISTRO.LOCATION_LON, 4, 1, arquivo);
+                fread(&REGISTRO.LOCATION_LAT, 4, 1, arquivo);
+                fread(&REGISTRO.HUMAN_IMPACT, 4, 1, arquivo);
+                fclose(arquivo);
+                break;
+            }
+
+        }
+
+        //APOS A BUSCA DO ID
+
+        if(encontrou==0){           //se nao encontrar o ID apenas printa a mensagem
+            printf(ERRO_RRN_ID);
+        }
+        else{                       //se encontrar o ID tenta modificar os campos do registro
+            scanf("%d",&nroInfos);  //qtd de informacoes que poderao ser adicionadas, STATUS, HUMAN IMPACT, POPULATION
+
+            if(nroInfos>3 || nroInfos<0){   //se o usuario inserir uma qtd invalida de insercoes de info
+                printf(ERRO_PADRAO);
+            }
+            else{
+                for (i = 0; i < nroInfos; i++) //loop que repete entre 0 e 3 vezes, para ler as modificacoes
+                {
+                    readline(comando);
+
+                    if (!(strcmp(comando,"STATUS")))
+                    {
+                        if (strcmp(REGISTRO.STATUS,"NULO"))//se o campo nao estiver nulo retorna erro
+                        {
+                            readline(lixostatus);
+                            printf(ERRO_CADASTRO);
+                        }
+                        else{
+                            readline(REGISTRO.STATUS);  //le um status novo caso o campo esteja com "NULO"
+                            for(i=strlen(REGISTRO.STATUS)+1; i<9;i++){  //coloca o cifrao no lugar dos espacos em branco
+
+                                if(strlen(REGISTRO.STATUS)==9)  //caso o tamanho da string seja 9, nao adiciona lixo
+                                    break;
+
+                                REGISTRO.STATUS[i] = '$';
+                             }
+                        }
+                        
+                    }
+                    else if(!(strcmp(comando,"HUMAN IMPACT")))
+                    {
+                        if (REGISTRO.HUMAN_IMPACT!=0)   //se o campo nao estiver nulo retorna erro
+                        {
+                            scanf("%d",&lixo);
+                            printf(ERRO_CADASTRO);
+                        }
+                        else{
+                            scanf("%d",&REGISTRO.HUMAN_IMPACT);  //le um impacto novo caso o campo esteja com "NULO"
+
+                            if(REGISTRO.HUMAN_IMPACT>3 || REGISTRO.HUMAN_IMPACT<0){ //se o valor estiver fora do normal volta ao estagio anterior e indica o erro
+                                printf(ERRO_PADRAO);
+                                REGISTRO.HUMAN_IMPACT=0;
+                            }
+                        }
+                    }
+                    else if(!(strcmp(comando,"POPULATION")))
+                    {
+                        if (REGISTRO.POPULATION!=0)   //se o campo nao estiver nulo retorna erro
+                        {
+                            scanf("%d",&lixo);
+                            printf(ERRO_CADASTRO);
+                        }
+                        else{
+                            scanf("%d",&REGISTRO.POPULATION);  //le um impacto novo caso o campo esteja com "NULO"
+                            if(REGISTRO.POPULATION<0){          //se o valor for incoerente volta a valer 0 e retorna o erro
+                                printf(ERRO_PADRAO);
+                                REGISTRO.POPULATION=0;
+                            }
+                        }
+                    }
+                    else{
+                        printf(ERRO_PADRAO);    //se algum comando inexistente for inserido
+                    }
+                    
+
+                }//fim do loop for
+                //INSERE AS MODIFICACOS NO ARQUIVO
+                arquivo = fopen(nomearq, "rb+");                //abre o arquivo no modo rb+, assim eh possivel editar o arquivo no meio dele sem reescreve-lo
+                fseek(arquivo, RRN*131, SEEK_SET);              //ajusta o ponteiro para o RRN encontrado anteriormente com base no ID
+                fwrite(&REGISTRO.SPECIES_ID, 4, 1, arquivo);
+                fwrite(REGISTRO.NAME, 41, 1, arquivo);
+                fwrite(REGISTRO.SCIENTIFIC_NAME, 61, 1, arquivo);
+                fwrite(&REGISTRO.POPULATION, 4, 1, arquivo);
+                fwrite(REGISTRO.STATUS, 9, 1, arquivo);
+                fwrite(&REGISTRO.LOCATION_LON, 4, 1, arquivo);
+                fwrite(&REGISTRO.LOCATION_LAT, 4, 1, arquivo);
+                fwrite(&REGISTRO.HUMAN_IMPACT, 4, 1, arquivo);
+                fclose(arquivo);
+            }
+
+                
+
+        }   
+    binarioNaTela(nomearq); //resultado
+    }
+
+}
+

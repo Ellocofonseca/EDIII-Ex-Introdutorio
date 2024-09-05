@@ -18,7 +18,7 @@ void direcionaComando(int codigo){
         break;
 
     case 4:
-        //registra_informacao();  //funcao que altera campos especificos de registros escolhidos
+        registra_informacao();  //funcao que altera campos especificos de registros escolhidos
         break;
 
     default:

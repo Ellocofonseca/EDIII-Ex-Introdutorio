@@ -8,10 +8,10 @@
 #include <locale.h>
 
 //------MENSAGENS-DE-ERRO-----
-#define ERRO_PADRAO     "Falha no processamento do arquivo" //mensagem padrao de erro
-#define ERRO_RRN_ID     "Espécie não encontrada"            //mensagem de erro para rrn invalido ou species_id inexistente
-#define ERRO_ARQUIVO    "Falha no processamento do arquivo" //mensagem de erro para arquivo inexistente
-#define ERRO_CADASTRO   "Informação já inserida no arquivo" //mensagem de erro para dados ja cadastrados
+#define ERRO_PADRAO     "Falha no processamento do arquivo\n" //mensagem padrao de erro
+#define ERRO_RRN_ID     "Espécie não encontrada\n"            //mensagem de erro para rrn invalido ou species_id inexistente
+#define ERRO_ARQUIVO    "Falha no processamento do arquivo\n" //mensagem de erro para arquivo inexistente
+#define ERRO_CADASTRO   "Informação já inserida no arquivo\n" //mensagem de erro para dados ja cadastrados
 
 
 // CAMPOS DO REGISTRO DE ESPECIE, MOSTRAM O FORMATO DE ENTRADA, REGISTRO DE 131 BYTES POR ESPECIE
@@ -32,10 +32,10 @@ typedef struct
 //--------FUNCOES-DO-PROGRAMA------------
 
 //FUNCOES PADRAO, REDIRECIONAMENTO
-void direcionaComando(int codigo);              //FUNCAO DE SELECAO DE FUNCAO DE ACORDO COM O COMANDO
+void direcionaComando(int codigo);                              //FUNCAO DE SELECAO DE FUNCAO DE ACORDO COM O COMANDO
 
 
-//FUNCOES DE CRIACAO/EDICAO DE ARQUIVOS (comandos 1 e 4) 
+//FUNCOES DE GRAVACAO/EDICAO DE ARQUIVOS (comandos 1 e 4) 
 void registrar_especie();                                       //FUNCAO QUE LE DO TECLADO E ESCREVE NO ARQUIVO
 void registra_informacao();                                     //FUNCAO QUE EDITA A INFORMACAO EM REGISTROS ESCOLHIDOS
 

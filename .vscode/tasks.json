@@ -7,11 +7,7 @@
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
-                "${file}",
-                "${fileDirname}/funcoesPadrao.c",
-                "${fileDirname}/funcoesFornecidas.c",
-                "${fileDirname}/funcoesGravacao.c",
-                "${fileDirname}/funcoesRelatorio.c",
+                "${fileDirname}/*.c",
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}"
             ],

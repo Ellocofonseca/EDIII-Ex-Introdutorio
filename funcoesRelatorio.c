@@ -66,13 +66,14 @@ void relatorio_RRN()
     }
     else{
         scanf("%d",&rrn);                                       //le o rrn do registro que esta sendo procurado
-        if(!fseek(arquivo,rrn*131,SEEK_SET) || rrn<0){          //ajusta o ponteiro do arquivo para a posicao desejada, byteoffset
-            printf(ERRO_RRN_ID);                                //se o rrn estiver incoerente retorna erro
-        }   
-        else{
+        fseek(arquivo,rrn*131,SEEK_SET);   //ajusta o ponteiro do arquivo para a posicao desejada, byteoffset
+        
 
-            //le os campos do registro desejado
-            fread(&REGISTRO.SPECIES_ID, 4, 1, arquivo);
+        if(!(fread(&REGISTRO.SPECIES_ID, 4, 1, arquivo)) || rrn<0){ //le o ID e checa se esta fora do arquivo
+            printf(ERRO_RRN_ID);                                    //se o rrn estiver incoerente retorna erro
+        }
+        else{
+            //le o resto dos campos do registro desejado
             fread(REGISTRO.NAME, 41, 1, arquivo);
             fread(REGISTRO.SCIENTIFIC_NAME, 61, 1, arquivo);
             fread(&REGISTRO.POPULATION, 4, 1, arquivo);
